@@ -2,24 +2,31 @@
 #define POINT_HH
 
 class Point {
-    double x_coord, y_coord;    // Data-members
+    double x_coord, y_coord, z_coord;      // Data-members
 
 public:
-    Point();                    // Default Constructor
-    Point(double x, double y);  // Constructor
-    Point(const Point &point);  // Copy Constructor
+    /* Constructors */
+    Point();                              // Default Constructor
+    Point(double x, double y, double z);  // Constructor
+    Point(const Point &point);            // Copy Constructor
 
-    ~Point();                   // Destructors
+    /* Destructor */
+    ~Point();                         
 
-    // Accessor methods
+    /* Accessor methods */
     double getX();
     double getY();
+    double getZ();
 
-    // Mutators
+    /* Mutators */
     void setX(double x);
     void setY(double y);
+    void setZ(double z);
 
-    Point operator+(Point &p);  // Overloading the + operator
+    /* Miscallaneous Methods */
+    double distanceTo(const Point &p);
+    void rotate90aboutZaxis();
+    void printPoint();
 };
 
 #endif /* POINT_HH */
