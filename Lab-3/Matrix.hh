@@ -36,10 +36,10 @@ public:
     bool equals(const Matrix &mat) const;
 
     /* Overloaded Operators */
-    Matrix & operator=(const Matrix &mat);       // Assignment
-    Matrix & operator+=(const Matrix &mat);      // Compound sum
-    Matrix & operator-=(const Matrix &mat);      // Compound subtraction
-    Matrix & operator*=(const Matrix &mat);      // Compound Multiplication
+    Matrix & operator=(const Matrix &mat);             // Assignment
+    Matrix & operator+=(const Matrix &mat);            // Compound sum
+    Matrix & operator-=(const Matrix &mat);            // Compound subtraction
+    Matrix & operator*=(const Matrix &mat);            // Compound Multiplication
     const Matrix operator+(const Matrix &mat) const;   // Sum
     const Matrix operator-(const Matrix &mat) const;   // Subtraction
     const Matrix operator*(const Matrix &mat) const;   // Multiplication
