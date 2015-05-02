@@ -9,6 +9,8 @@ class Matrix {
     
     /* Private Helper Method */
     int matIndex(int row, int col) const;
+    void copy(const Matrix &mat);
+    void cleanup();
 
 public:
     /* Constructors */

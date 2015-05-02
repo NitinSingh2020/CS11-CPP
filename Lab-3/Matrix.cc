@@ -31,23 +31,12 @@ Matrix::Matrix(int rows, int cols) {
 
 /* Copy Constructor */
 Matrix::Matrix(const Matrix &mat) {
-    numRows = mat.getrows();
-    numCols = mat.getcols();
-
-    numElems =  numRows * numCols;
-
-    elems = new int[numElems];
-    for (int i = 0; i < numRows; i++) {
-        for (int j = 0; j < numCols; j++) {
-            int index = matIndex(i, j);
-            elems[index] = mat.getelem(i, j);
-        }
-    }
+    copy(mat);
 }
 
 /* Clean up a Matrix instance */
 Matrix::~Matrix() {
-    delete[] elems;
+    cleanup();
 }
 
 /* Accessor methods */
@@ -121,6 +110,32 @@ bool Matrix::equals(const Matrix &mat) const {
     }
 }
 
+/* Helper Method 1 */
 int Matrix::matIndex(int row, int col) const {
     return (row * numCols) + col;
 }
+
+/* Helper Method 2 */
+void Matrix::copy(const Matrix &mat) {
+
+    numRows = mat.getrows();
+    numCols = mat.getcols();
+
+    numElems =  numRows * numCols;
+
+    elems = new int[numElems];
+    for (int i = 0; i < numRows; i++) {
+        for (int j = 0; j < numCols; j++) {
+            int index = matIndex(i, j);
+            elems[index] = mat.getelem(i, j);
+        }
+    }
+}
+
+/* Helper Method 3 */
+void Matrix::cleanup() {
+    delete[] elems;
+}
+
+
+
