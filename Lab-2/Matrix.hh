@@ -2,7 +2,11 @@
 #define MATRIX_HH
 
 class Matrix {
-    
+    int numElems;       // Total elements in Matrix
+    int numRows;        // Row size
+    int numCols;        // Column size
+    int *elems;
+
 public:
     /* Constructors */
     Matrix();                             // Default Constructor
@@ -11,6 +15,21 @@ public:
 
     /* Destructor */
     ~Matrix();
+
+    /* Accessor methods */
+    int getrows() const;
+    int getcols() const;
+    int getelem(int i, int j) const;
+
+    /* Mutator method */
+    void setelem(int row, int col, int val);
+
+    /* Arithmetic methods */
+    void add();
+    void subtract();
+
+    /* Comparison method */
+    bool equals() const;
 };
 
-#endif MATRIX_HH
+#endif /* MATRIX_HH */
