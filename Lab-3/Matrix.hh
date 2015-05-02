@@ -42,9 +42,15 @@ public:
     Matrix & operator+=(const Matrix &mat);      // Compound sum
     Matrix & operator-=(const Matrix &mat);      // Compound subtraction
     Matrix & operator*=(const Matrix &mat);      // Compound Multiplication
-    const Matrix operator+(const Matrix &mat);   // Sum
-    const Matrix operator-(const Matrix &mat);   // Subtraction
-    const Matrix operator*(const Matrix &mat);   // Multiplication
+    const Matrix operator+(const Matrix &mat) const;   // Sum
+    const Matrix operator-(const Matrix &mat) const;   // Subtraction
+    const Matrix operator*(const Matrix &mat) const;   // Multiplication
+    bool operator==(const Matrix &mat) const;          // Equality
+    bool operator!=(const Matrix &mat) const ;         // Non-equality
 };
 
 #endif /* MATRIX_HH */
+
+
+
+

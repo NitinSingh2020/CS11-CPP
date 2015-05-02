@@ -57,9 +57,12 @@ int Matrix::getelem(int row, int col) const {
 
 /* Mutator method */
 void Matrix::setelem(int row, int col, int val) {
-
     assert(row < numRows);
     assert(col < numCols);
+    // assert(row >= 0);
+    // assert(row <= numRows);
+    // assert(col >= 0);
+    // assert(col <= numCols);
 
     int index = matIndex(row, col);
     elems[index] = val;
@@ -92,7 +95,7 @@ void Matrix::subtract(const Matrix &mat) {
 }
 
 void Matrix::multiply(const Matrix &mat) {
-
+    // O(n^3), poor implementation
     assert(numCols == mat.getrows());
 
     int n = numRows;
@@ -100,11 +103,11 @@ void Matrix::multiply(const Matrix &mat) {
     int p = mat.getcols();
     Matrix tempResult(numRows, mat.getcols());
 
-    for (int i = 1; i <= n; i++) {
-        for (int j = 1; j <= p; j++) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < p; j++) {
             int sum = 0;
-            for (int k = 1; k < m; k++) {
-                sum =+ this->getelem(i,k) * mat.getelem(k,j);
+            for (int k = 0; k < m; k++) {
+                sum += (this->getelem(i,k) * mat.getelem(k,j));
             }
             tempResult.setelem(i,j,sum);
         }
@@ -134,8 +137,8 @@ bool Matrix::equals(const Matrix &mat) const {
 
 /* Assignment Operator */
 Matrix & Matrix::operator=(const Matrix &mat) {
-    assert(numRows == mat.getrows());
-    assert(numCols == mat.getcols());
+    // assert(numRows == mat.getrows());
+    // assert(numCols == mat.getcols());
     // Avoid self-assignment
     if (this != &mat) {
         cleanup();
@@ -161,7 +164,7 @@ Matrix & Matrix::operator+=(const Matrix &mat) {
 }
 
 /* Sum Operator */
-const Matrix Matrix::operator+(const Matrix &mat) {
+const Matrix Matrix::operator+(const Matrix &mat) const {
     assert(numRows == mat.getrows());
     assert(numCols == mat.getcols());
     /* More detailed implementation
@@ -191,7 +194,7 @@ Matrix & Matrix::operator-=(const Matrix &mat) {
 }
 
 /* Subtraction Operator */
-const Matrix Matrix::operator-(const Matrix &mat) {
+const Matrix Matrix::operator-(const Matrix &mat) const {
     /* More detailed implementation
     // First, make a copy of myself.
     Matrix result(*this);
@@ -220,7 +223,7 @@ Matrix & Matrix::operator*=(const Matrix &mat) {
 }
 
 /* Multiplication Operator */
-const Matrix Matrix::operator*(const Matrix &mat) {
+const Matrix Matrix::operator*(const Matrix &mat) const {
     assert(numCols == mat.getrows());
     /* More detailed implementation
     // First, make a copy of myself.
@@ -231,6 +234,16 @@ const Matrix Matrix::operator*(const Matrix &mat) {
     return result;
     */
     return Matrix(*this) *= mat;
+}
+
+/* Equality */
+bool Matrix::operator==(const Matrix &mat) const {
+    return equals(mat);
+}
+
+/* Non-equality */
+bool Matrix::operator!=(const Matrix &mat) const {
+    return !(*this == mat);
 }
 
 /* Helper Method 1 */
