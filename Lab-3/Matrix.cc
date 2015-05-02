@@ -91,6 +91,28 @@ void Matrix::subtract(const Matrix &mat) {
     }
 }
 
+void Matrix::multiply(const Matrix &mat) {
+
+    assert(numCols == mat.getrows());
+
+    int n = numRows;
+    int m = numCols;
+    int p = mat.getcols();
+    Matrix tempResult(numRows, mat.getcols());
+
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= p; j++) {
+            int sum = 0;
+            for (int k = 1; k < m; k++) {
+                sum =+ this->getelem(i,k) * mat.getelem(k,j);
+            }
+            tempResult.setelem(i,j,sum);
+        }
+    }
+
+    *this = tempResult;
+}
+
 /* Comparison method */
 bool Matrix::equals(const Matrix &mat) const {
 
@@ -112,6 +134,8 @@ bool Matrix::equals(const Matrix &mat) const {
 
 /* Assignment Operator */
 Matrix & Matrix::operator=(const Matrix &mat) {
+    assert(numRows == mat.getrows());
+    assert(numCols == mat.getcols());
     // Avoid self-assignment
     if (this != &mat) {
         cleanup();
@@ -123,6 +147,8 @@ Matrix & Matrix::operator=(const Matrix &mat) {
 
 /* Compound Sum Operator */
 Matrix & Matrix::operator+=(const Matrix &mat) {
+    assert(numRows == mat.getrows());
+    assert(numCols == mat.getcols());
     // Avoid self-assignment
     if (this != &mat) {
         this->add(mat);
@@ -134,21 +160,10 @@ Matrix & Matrix::operator+=(const Matrix &mat) {
     return *this;
 }
 
-/* Compound Subtraction Operator */
-Matrix & Matrix::operator-=(const Matrix &mat) {
-    // Avoid self-assignment
-    if (this != &mat) {
-        this->subtract(mat);
-    } else {
-        // First, make a copy of myself
-        Matrix newCopy(*this);
-        this->subtract(newCopy);
-    }
-    return *this;
-}
-
 /* Sum Operator */
 const Matrix Matrix::operator+(const Matrix &mat) {
+    assert(numRows == mat.getrows());
+    assert(numCols == mat.getcols());
     /* More detailed implementation
     // First, make a copy of myself.
     Matrix result(*this);
@@ -158,6 +173,21 @@ const Matrix Matrix::operator+(const Matrix &mat) {
     return result;
     */
     return Matrix(*this) += mat;
+}
+
+/* Compound Subtraction Operator */
+Matrix & Matrix::operator-=(const Matrix &mat) {
+    assert(numRows == mat.getrows());
+    assert(numCols == mat.getcols());
+    // Avoid self-assignment
+    if (this != &mat) {
+        this->subtract(mat);
+    } else {
+        // First, make a copy of myself
+        Matrix newCopy(*this);
+        this->subtract(newCopy);
+    }
+    return *this;
 }
 
 /* Subtraction Operator */
@@ -170,7 +200,37 @@ const Matrix Matrix::operator-(const Matrix &mat) {
     // All done!
     return result;
     */
+    assert(numRows == mat.getrows());
+    assert(numCols == mat.getcols());
     return Matrix(*this) -= mat;
+}
+
+/* Compound Multiplication Operator */
+Matrix & Matrix::operator*=(const Matrix &mat) {
+    assert(numCols == mat.getrows());
+    // Avoid self-assignment
+    if (this != &mat) {
+        this->multiply(mat);
+    } else {
+        // First, make a copy of myself
+        Matrix newCopy(*this);
+        this->multiply(newCopy);
+    }
+    return *this;
+}
+
+/* Multiplication Operator */
+const Matrix Matrix::operator*(const Matrix &mat) {
+    assert(numCols == mat.getrows());
+    /* More detailed implementation
+    // First, make a copy of myself.
+    Matrix result(*this);
+    // Second, add the RHS to the result.
+    result *= mat;
+    // All done!
+    return result;
+    */
+    return Matrix(*this) *= mat;
 }
 
 /* Helper Method 1 */

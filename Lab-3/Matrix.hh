@@ -32,16 +32,19 @@ public:
     /* Arithmetic methods */
     void add(const Matrix &mat);
     void subtract(const Matrix &mat);
+    void multiply(const Matrix &mat);
 
     /* Comparison method */
     bool equals(const Matrix &mat) const;
 
     /* Overloaded Operators */
-    Matrix & operator=(const Matrix &mat);   // Assignment
-    Matrix & operator+=(const Matrix &mat);  // Compound sum
-    Matrix & operator-=(const Matrix &mat);  // Compound subtraction
+    Matrix & operator=(const Matrix &mat);       // Assignment
+    Matrix & operator+=(const Matrix &mat);      // Compound sum
+    Matrix & operator-=(const Matrix &mat);      // Compound subtraction
+    Matrix & operator*=(const Matrix &mat);      // Compound Multiplication
     const Matrix operator+(const Matrix &mat);   // Sum
     const Matrix operator-(const Matrix &mat);   // Subtraction
+    const Matrix operator*(const Matrix &mat);   // Multiplication
 };
 
 #endif /* MATRIX_HH */
