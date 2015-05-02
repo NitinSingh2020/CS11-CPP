@@ -121,7 +121,7 @@ Matrix & Matrix::operator=(const Matrix &mat) {
     return *this;
 }
 
-/* Compound sum */
+/* Compound Sum Operator */
 Matrix & Matrix::operator+=(const Matrix &mat) {
     // Avoid self-assignment
     if (this != &mat) {
@@ -134,7 +134,7 @@ Matrix & Matrix::operator+=(const Matrix &mat) {
     return *this;
 }
 
-/* Compound subtraction */
+/* Compound Subtraction Operator */
 Matrix & Matrix::operator-=(const Matrix &mat) {
     // Avoid self-assignment
     if (this != &mat) {
@@ -147,7 +147,7 @@ Matrix & Matrix::operator-=(const Matrix &mat) {
     return *this;
 }
 
-/* Sum */
+/* Sum Operator */
 const Matrix Matrix::operator+(const Matrix &mat) {
     /* More detailed implementation
     // First, make a copy of myself.
@@ -160,7 +160,7 @@ const Matrix Matrix::operator+(const Matrix &mat) {
     return Matrix(*this) += mat;
 }
 
-/* Subtraction */
+/* Subtraction Operator */
 const Matrix Matrix::operator-(const Matrix &mat) {
     /* More detailed implementation
     // First, make a copy of myself.
@@ -199,6 +199,3 @@ void Matrix::copy(const Matrix &mat) {
 void Matrix::cleanup() {
     delete[] elems;
 }
-
-
-
