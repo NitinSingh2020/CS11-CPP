@@ -36,8 +36,10 @@ public:
     /* Comparison method */
     bool equals(const Matrix &mat) const;
 
-    /* Assignment Operator */
-    Matrix & operator=(const Matrix &mat);
+    /* Overloaded Operators */
+    Matrix & operator=(const Matrix &mat);   // Assignment
+    Matrix & operator+=(const Matrix &mat);  // Compound sum
+    Matrix & operator-=(const Matrix &mat);  // Compound subtraction
 };
 
 #endif /* MATRIX_HH */

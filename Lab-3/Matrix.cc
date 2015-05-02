@@ -112,7 +112,7 @@ bool Matrix::equals(const Matrix &mat) const {
 
 /* Assignment Operator */
 Matrix & Matrix::operator=(const Matrix &mat) {
-    // Make sure to avoid self-assignment.
+    // Avoid self-assignment
     if (this != &mat) {
         cleanup();
         copy(mat);
@@ -120,6 +120,33 @@ Matrix & Matrix::operator=(const Matrix &mat) {
 
     return *this;
 }
+
+/* Compound sum */
+Matrix & Matrix::operator+=(const Matrix &mat) {
+    // Avoid self-assignment
+    if (this != &mat) {
+        this->add(mat);
+    } else {
+        // First, make a copy of myself
+        Matrix newCopy(*this);
+        this->add(newCopy);
+    }
+    return *this;
+}
+
+/* Compound subtraction */
+Matrix & Matrix::operator-=(const Matrix &mat) {
+    // Avoid self-assignment
+    if (this != &mat) {
+        this->subtract(mat);
+    } else {
+        // First, make a copy of myself
+        Matrix newCopy(*this);
+        this->subtract(newCopy);
+    }
+    return *this;
+}
+
 
 /* Helper Method 1 */
 int Matrix::matIndex(int row, int col) const {
