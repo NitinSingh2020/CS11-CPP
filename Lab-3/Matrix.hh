@@ -7,10 +7,13 @@ class Matrix {
     int numCols;        // Column size
     int *elems;
     
-    /* Private Helper Method */
+    /* Private Helper Methods */
     int matIndex(int row, int col) const;
     void copy(const Matrix &mat);
     void cleanup();
+    void add(const Matrix &mat);
+    void subtract(const Matrix &mat);
+    void multiply(const Matrix &mat); 
 
 public:
     /* Constructors */
@@ -29,11 +32,6 @@ public:
     /* Mutator method */
     void setelem(int row, int col, int val);
 
-    /* Arithmetic methods */
-    void add(const Matrix &mat);
-    void subtract(const Matrix &mat);
-    void multiply(const Matrix &mat);
-
     /* Comparison method */
     bool equals(const Matrix &mat) const;
 
@@ -50,7 +48,3 @@ public:
 };
 
 #endif /* MATRIX_HH */
-
-
-
-
