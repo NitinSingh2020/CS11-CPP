@@ -40,6 +40,8 @@ public:
     Matrix & operator=(const Matrix &mat);   // Assignment
     Matrix & operator+=(const Matrix &mat);  // Compound sum
     Matrix & operator-=(const Matrix &mat);  // Compound subtraction
+    const Matrix operator+(const Matrix &mat);   // Sum
+    const Matrix operator-(const Matrix &mat);   // Subtraction
 };
 
 #endif /* MATRIX_HH */

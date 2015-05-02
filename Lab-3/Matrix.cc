@@ -147,6 +147,31 @@ Matrix & Matrix::operator-=(const Matrix &mat) {
     return *this;
 }
 
+/* Sum */
+const Matrix Matrix::operator+(const Matrix &mat) {
+    /* More detailed implementation
+    // First, make a copy of myself.
+    Matrix result(*this);
+    // Second, add the RHS to the result.
+    result += mat;
+    // All done!
+    return result;
+    */
+    return Matrix(*this) += mat;
+}
+
+/* Subtraction */
+const Matrix Matrix::operator-(const Matrix &mat) {
+    /* More detailed implementation
+    // First, make a copy of myself.
+    Matrix result(*this);
+    // Second, subtract the RHS to the result.
+    result -= mat;
+    // All done!
+    return result;
+    */
+    return Matrix(*this) -= mat;
+}
 
 /* Helper Method 1 */
 int Matrix::matIndex(int row, int col) const {
