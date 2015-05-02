@@ -35,6 +35,9 @@ public:
 
     /* Comparison method */
     bool equals(const Matrix &mat) const;
+
+    /* Assignment Operator */
+    Matrix & operator=(const Matrix &mat);
 };
 
 #endif /* MATRIX_HH */

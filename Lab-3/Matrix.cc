@@ -110,6 +110,17 @@ bool Matrix::equals(const Matrix &mat) const {
     }
 }
 
+/* Assignment Operator */
+Matrix & Matrix::operator=(const Matrix &mat) {
+    // Make sure to avoid self-assignment.
+    if (this != &mat) {
+        cleanup();
+        copy(mat);
+    }
+
+    return *this;
+}
+
 /* Helper Method 1 */
 int Matrix::matIndex(int row, int col) const {
     return (row * numCols) + col;
