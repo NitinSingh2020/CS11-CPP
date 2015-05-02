@@ -6,6 +6,9 @@ class Matrix {
     int numRows;        // Row size
     int numCols;        // Column size
     int *elems;
+    
+    /* Private Helper Method */
+    int matIndex(int row, int col) const;
 
 public:
     /* Constructors */
@@ -25,11 +28,11 @@ public:
     void setelem(int row, int col, int val);
 
     /* Arithmetic methods */
-    void add();
-    void subtract();
+    void add(const Matrix &mat);
+    void subtract(const Matrix &mat);
 
     /* Comparison method */
-    bool equals() const;
+    bool equals(const Matrix &mat) const;
 };
 
 #endif /* MATRIX_HH */

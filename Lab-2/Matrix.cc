@@ -1,13 +1,14 @@
 #include "Matrix.hh"
 #include <iostream>
+#include <cassert>
 
 /* Default (aka no-argument) constructor */
 Matrix::Matrix() {
-	numElems = 0;
-	numRows = 0;
-	numCols = 0;
+    numElems = 0;
+    numRows = 0;
+    numCols = 0;
 
-	elems = new int[numElems];
+    elems = new int[numElems];
 }
 
 /* Two-argument constructor */
@@ -26,7 +27,6 @@ Matrix::Matrix(int m, int n) {
 
 /* Copy Constructor */
 Matrix::Matrix(const Matrix &mat) {
-    std::cout << "Copy constructor called" << std::endl;
     numRows = mat.getrows();
     numCols = mat.getcols();
 
@@ -34,16 +34,15 @@ Matrix::Matrix(const Matrix &mat) {
 
     elems = new int[numElems];
     for (int i = 0; i < numRows; i++) {
-    	for (int j = 0; j < numCols; j++) {
-    		int index = (i * numCols) + j; 
-            elems[index] = mat.getelem(i,j);
-    	}
+        for (int j = 0; j < numCols; j++) {
+            int index = matIndex(i, j);
+            elems[index] = mat.getelem(i, j);
+        }
     }
 }
 
 /* Clean up a Matrix instance */
 Matrix::~Matrix() {
-    std::cout << "Destructor called" << std::endl;
     delete[] elems;
 }
 
@@ -54,31 +53,69 @@ int Matrix::getrows() const {
 int Matrix::getcols() const {
     return numCols;
 }
-int Matrix::getelem(int i, int j) const {
-	int index = (i * numCols) + j;
+int Matrix::getelem(int row, int col) const {
+    int index = matIndex(row, col);
     return elems[index];
 }
 
 /* Mutator method */
 void Matrix::setelem(int row, int col, int val) {
-	int index = (row * numCols) + col;
-	elems[index] = val;
+	
+	assert(row < numRows);
+	assert(col < numCols);
+
+    int index = matIndex(row, col);
+    elems[index] = val;
 }
 
 /* Arithmetic methods */
-void Matrix::add() {}
-void Matrix::subtract() {}
+void Matrix::add(const Matrix &mat) {
+
+    assert(numRows == mat.getrows());
+    assert(numCols == mat.getcols());
+
+    for (int i = 0; i < numRows; i++) {
+        for (int j = 0; j < numCols; j++) {
+            int index = matIndex(i, j);
+            elems[index] += mat.getelem(i,j);
+        }
+    }
+}
+void Matrix::subtract(const Matrix &mat) {
+
+    assert(numRows == mat.getrows());
+    assert(numCols == mat.getcols());
+
+    for (int i = 0; i < numRows; i++) {
+        for (int j = 0; j < numCols; j++) {
+            int index = matIndex(i, j);
+            elems[index] -= mat.getelem(i,j);
+        }
+    }
+}
 
 /* Comparison method */
-bool Matrix::equals() const {}
+bool Matrix::equals(const Matrix &mat) const {
 
+    assert(numRows == mat.getrows());
+    assert(numCols == mat.getcols());
 
+    if (numRows == mat.getrows() && numCols == mat.getcols()) {
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) {
+                int index = matIndex(i, j);
+                if (elems[index] != mat.getelem(i,j)) {
+                    return false;
+                    break;
+                }
+            }
+        }
+        return true;
+    } else {
+        return false;
+    }
+}
 
-
-
-
-
-
-
-
-
+int Matrix::matIndex(int row, int col) const {
+    return (row * numCols) + col;
+}
