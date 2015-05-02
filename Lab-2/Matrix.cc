@@ -12,10 +12,14 @@ Matrix::Matrix() {
 }
 
 /* Two-argument constructor */
-Matrix::Matrix(int m, int n) {
-    numElems = m*n;
-    numRows = m;
-    numCols = n;
+Matrix::Matrix(int rows, int cols) {
+
+    assert(rows > -1);
+    assert(cols > -1);
+
+    numElems = rows * cols;
+    numRows = rows;
+    numCols = cols;
 
     elems = new int[numElems];
 
@@ -54,15 +58,19 @@ int Matrix::getcols() const {
     return numCols;
 }
 int Matrix::getelem(int row, int col) const {
+
+    assert(row <= numRows);
+    assert(col <= numCols);
+
     int index = matIndex(row, col);
     return elems[index];
 }
 
 /* Mutator method */
 void Matrix::setelem(int row, int col, int val) {
-	
-	assert(row < numRows);
-	assert(col < numCols);
+
+    assert(row < numRows);
+    assert(col < numCols);
 
     int index = matIndex(row, col);
     elems[index] = val;
@@ -96,9 +104,6 @@ void Matrix::subtract(const Matrix &mat) {
 
 /* Comparison method */
 bool Matrix::equals(const Matrix &mat) const {
-
-    assert(numRows == mat.getrows());
-    assert(numCols == mat.getcols());
 
     if (numRows == mat.getrows() && numCols == mat.getcols()) {
         for (int i = 0; i < numRows; i++) {
