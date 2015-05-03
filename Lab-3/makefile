@@ -6,5 +6,5 @@ OBJECTS=
 EXECUTABLE=
 
 
-all: simplematrixtest.cc
+all: checkmatrix.cc
 	g++ -Wall checkmatrix.cc Matrix.cc -o checkmatrix
