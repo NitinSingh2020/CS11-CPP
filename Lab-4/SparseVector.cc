@@ -3,13 +3,18 @@
 #include <cassert>
 
 /* One-argument constructor */
-SparseVector::SparseVector(int size) {}
+SparseVector::SparseVector(int listSize) {
+    size = listSize;
+    start = 0;
+}
 
 /* Copy Constructor */
 SparseVector::SparseVector(const SparseVector &sv) {}
 
 /* Destructor */
-SparseVector::~SparseVector() {}
+SparseVector::~SparseVector() {
+    clear();
+}
 
 /* Accessor methods */
 int SparseVector::getSize() const {
@@ -25,7 +30,7 @@ void SparseVector::setElem(int index, int value) {}
 SparseVector & SparseVector::operator=(const SparseVector &sv) {}
 
 /* Private Helper Method 1 */
-int SparseVector::clear(int row, int col) {}
+int SparseVector::clear() {}
 
 /* Private Helper Method 2 */
 void SparseVector::copyList(const SparseVector &sv) {}
@@ -38,3 +43,25 @@ void SparseVector::removeElem(int index) {}
 
 /* Private Helper Method 5 */
 void SparseVector::checkListOrder() {}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

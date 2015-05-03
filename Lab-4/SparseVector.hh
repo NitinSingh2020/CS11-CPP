@@ -18,7 +18,7 @@ class SparseVector {
     node *start;       // Node-pointer to the first nonzero element in the list
     
     /* Private Helper Methods */
-    int clear(int row, int col);
+    int clear();
     void copyList(const SparseVector &sv);
     void setNonzeroElem(int index, int value);
     void removeElem(int index);
@@ -44,3 +44,19 @@ public:
 };
 
 #endif /* SPARSEVECTOR_HH */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
