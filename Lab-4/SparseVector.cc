@@ -12,7 +12,9 @@ SparseVector::SparseVector(const SparseVector &sv) {}
 SparseVector::~SparseVector() {}
 
 /* Accessor methods */
-int SparseVector::getSize() const {}
+int SparseVector::getSize() const {
+    return size;
+}
 
 int SparseVector::getElem(int idx) const {}
 
