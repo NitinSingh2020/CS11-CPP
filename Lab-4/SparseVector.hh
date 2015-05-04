@@ -18,11 +18,11 @@ class SparseVector {
     node *start;       // Node-pointer to the first nonzero element in the list
     
     /* Private Helper Methods */
-    int clear();
+    void clear();
     void copyList(const SparseVector &sv);
     void setNonzeroElem(int index, int value);
     void removeElem(int index);
-    void checkListOrder();
+    // void checkListOrder();
 
 public:
     /* Constructors */
@@ -41,6 +41,8 @@ public:
 
     /* Overloaded Operators */
     SparseVector & operator=(const SparseVector &sv);  // Assignment
+
+    void checkListOrder();
 };
 
 #endif /* SPARSEVECTOR_HH */
