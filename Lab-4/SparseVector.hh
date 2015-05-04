@@ -5,8 +5,8 @@ class SparseVector {
 
     /* A linked-list node for our sparse vector elements */
     struct node {
-        int  index;    // Element number, in the range [0, size)
-        int  value;    // The value of this element.
+        int index;     // Element number, in the range [0, size)
+        int value;     // The value of this element.
         node *next;    // A pointer to the next node in the linked-list.
 
         /* Node constructor - simply initializes the data-members */
