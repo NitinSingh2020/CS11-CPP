@@ -75,10 +75,38 @@ const SparseVector SparseVector::operator+(const SparseVector &sv) const {}
 const SparseVector SparseVector::operator-(const SparseVector &sv) const {}
 
 /* Equality Operator */
-bool SparseVector::operator==(const SparseVector &mat) const {}
+bool SparseVector::operator==(const SparseVector &other) const {
+    
+    // If size is different vectors cannot be equal 
+    if (size != other.getSize())
+        return false;
+
+    // Pointer to the current nodes
+    node *curr = start;
+    node *otherCurr = other.start;
+
+    // List is not empty
+    while (curr != 0 && otherCurr != 0) {
+
+        if (curr->value != otherCurr->value || curr->index != otherCurr->index) {
+            return false;
+        }
+
+        // Go to the next node in lists
+        curr = curr->next;
+        otherCurr = otherCurr->next;
+    }
+
+    if (curr != 0 || otherCurr != 0)
+        return false;
+
+    return true;
+}
 
 /* Non-equality Operator */
-bool SparseVector::operator!=(const SparseVector &mat) const {}
+bool SparseVector::operator!=(const SparseVector &sv) const {
+    return !(*this == sv);
+}
 
 /* Private Helper Method 1 */
 void SparseVector::clear() {
