@@ -1,6 +1,7 @@
 #include "SparseVector.hh"
 #include <iostream>
 #include <cassert>
+// #include <algorithm>
 
 /* One-argument constructor */
 SparseVector::SparseVector(int listSize) {
@@ -66,8 +67,10 @@ SparseVector & SparseVector::operator=(const SparseVector &sv) {
 SparseVector & SparseVector::operator+=(const SparseVector &sv) {
     // Avoid self-assignment
     if (this != &sv) {
+        //std::cout << "Inside the += if block" << std::endl;
         this->addSubVector(sv, true);
     } else {
+        //std::cout << "Inside the += else block" << std::endl;
         // First, make a copy of myself
         SparseVector newCopy(*this);
         this->addSubVector(newCopy, true);
@@ -304,21 +307,69 @@ void SparseVector::checkListOrder() {
 
 /* Private Helper Method 6 */
 void SparseVector::addSubVector(const SparseVector &other, bool add) {
-    sign = (add ? 1 : -1);
+    int sign = (add ? 1 : -1);
 
     // Pointer to the current nodes
     node *curr = start;
     node *otherCurr = other.start;
     
-    int idx = 0; 
+    // Pointer to the previous node
+    node *prev = 0;    
+    int i = 0;
+    //std::cout << "Before While" << std::endl;
     // List is not empty
     while (curr != 0 && otherCurr != 0) {
-        idx = min( curr->index , otherCurr->index );
+        i = std::min( curr->index , otherCurr->index );
 
-        // Go to the next node in lists
-        curr = curr->next;
-        otherCurr = otherCurr->next;
+        if (curr->index < otherCurr->index) {
+            //std::cout << "Inside the if of while loop" << std::endl;
+            // Update previous node
+            prev = curr;
+            curr = curr->next; // Move node pointer forward
+            //checkListOrder();
+        } else if (curr->index == otherCurr->index) {
+            //std::cout << "Inside the else-if of while loop" << std::endl;
+            // Update previous node
+            prev = curr;            
+            curr->value = curr->value + sign * otherCurr->value;
+            curr = curr->next; // Move node pointer forward
+            otherCurr = otherCurr->next; // Move othernode pointer forward
+            //checkListOrder();
+        } else if (curr->index > otherCurr->index) {
+            //std::cout << "Inside the last else-if of while loop" << std::endl;
+            
+            if (prev == 0) {
+                // curr is the first node, make start point to the new added node
+                start = new node(i, otherCurr->value, curr);
+            } else {
+                // Make previous node point to the added node
+                prev->next = new node(i, otherCurr->value, curr);
+            }
+
+            otherCurr = otherCurr->next; // Move othernode pointer forward
+            //checkListOrder();
+        }
     }
+
+    //std::cout << "After While" << std::endl;
+    // If the first list ends and other doesnt
+    if (curr == 0 && otherCurr != 0) {
+        while (otherCurr != 0) {
+            // Copy other list's current node
+            node *curr = new node(otherCurr->index, sign * (otherCurr->value));
+
+            if (prev == 0)
+                start = curr;             // curr is the first node in our copy!
+            else
+                prev->next = curr;        // Make previous node point to current
+
+            prev = curr;                  // Done with current node!
+            otherCurr = otherCurr->next;  // Move to next node to copy        
+        }
+    }
+    //std::cout << "I am here" << std::endl;
+    // Remove zeros from the list if generated
+    removeZeros();
 }
 
 /* Private Helper Method 7 */
