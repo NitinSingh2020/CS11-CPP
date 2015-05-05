@@ -62,6 +62,24 @@ SparseVector & SparseVector::operator=(const SparseVector &sv) {
     return *this;
 }
 
+/* Compound Sum Operator */
+SparseVector & SparseVector::operator+=(const SparseVector &sv) {}
+
+/* Compound Subtraction Operator */
+SparseVector & SparseVector::operator-=(const SparseVector &sv) {}
+
+/* Sum Operator */
+const SparseVector SparseVector::operator+(const SparseVector &sv) const {}
+
+/* Subtraction Operator */
+const SparseVector SparseVector::operator-(const SparseVector &sv) const {}
+
+/* Equality Operator */
+bool SparseVector::operator==(const SparseVector &mat) const {}
+
+/* Non-equality Operator */
+bool SparseVector::operator!=(const SparseVector &mat) const {}
+
 /* Private Helper Method 1 */
 void SparseVector::clear() {
 
@@ -232,24 +250,11 @@ void SparseVector::checkListOrder() {
     }
 }
 
+/* Private Helper Method 6 */
+void SparseVector::addSubVector(const SparseVector &sv, bool add) {}
 
+/* Private Helper Method 7 */
+void SparseVector::removeZeros() {}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* Private Helper Method 8 */
+void SparseVector::checkZeros() {}

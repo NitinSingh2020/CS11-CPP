@@ -23,6 +23,9 @@ class SparseVector {
     void setNonzeroElem(int index, int value);
     void removeElem(int index);
     void checkListOrder();
+    void addSubVector(const SparseVector &sv, bool add);
+    void removeZeros();
+    void checkZeros();
 
 public:
     /* Constructors */
@@ -40,24 +43,13 @@ public:
     void setElem(int index, int value);
 
     /* Overloaded Operators */
-    SparseVector & operator=(const SparseVector &sv);  // Assignment
-
+    SparseVector & operator=(const SparseVector &sv);           // Assignment
+    SparseVector & operator+=(const SparseVector &sv);          // Compound sum
+    SparseVector & operator-=(const SparseVector &sv);          // Compound subtraction
+    const SparseVector operator+(const SparseVector &sv) const; // Sum
+    const SparseVector operator-(const SparseVector &sv) const; // Subtraction
+    bool operator==(const SparseVector &mat) const;             // Equality
+    bool operator!=(const SparseVector &mat) const ;            // Non-equality
 };
 
 #endif /* SPARSEVECTOR_HH */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
