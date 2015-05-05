@@ -4,21 +4,17 @@
 
 /* One-argument constructor */
 SparseVector::SparseVector(int listSize) {
-    // std::cout << "Argument Constructor" << std::endl;
     size = listSize;
     start = 0;
-    // std::cout << "List Size: " << size << std::endl;
 }
 
 /* Copy Constructor */
 SparseVector::SparseVector(const SparseVector &sv) {
-    // std::cout << "Copy Constructor" << std::endl;
     copyList(sv);
 }
 
 /* Destructor */
 SparseVector::~SparseVector() {
-    // std::cout << "          Destructor" << std::endl;
     clear();
 }
 
@@ -68,43 +64,34 @@ SparseVector & SparseVector::operator=(const SparseVector &sv) {
 
 /* Private Helper Method 1 */
 void SparseVector::clear() {
-    // std::cout << "clear method start" << std::endl;
-    // std::cout << "List size is: " << size << std::endl;
-    // if (start == 0) {
-    //     std::cout << "Start is indeed 0" << std::endl;
-    // } else {
-    //     std::cout << "Woops Bug !!" << std::endl;
-    //     std::cout << "    :Index" << start->index  << std::endl;
-    //     std::cout << "    :Index" << start->value  << std::endl;
-    // }
-    // int i = 0;
+
     node *curr = start;
     while (curr != 0) {
-        // std::cout << "i: " << i+1 << std::endl; i++;
+
         // Get what is next, before deleting curr.
         node *next = curr->next;
-        // std::cout << "next node assigned" << std::endl;
+
         // Delete this node.
         delete curr;
-        // std::cout << "node deleted" << std::endl;
+
         // Go to next node in list
         curr = next;
     }
-    // std::cout << "clear method end" << std::endl;
 }
 
 /* Private Helper Method 2 */
 void SparseVector::copyList(const SparseVector &other) {
-    // std::cout << "copyList method start" << std::endl;
+
     size = other.getSize();
     start = 0;
+
     // Get a pointer to other list's first node
     node *otherCurr = other.start;
 
     // Use prev and curr to create the copy
     node *prev = 0;
     while (otherCurr != 0) {
-    	// std::cout << "    SparseVector is not empty" << std::endl;
+    
         // Copy other list's current node
         node *curr = new node(otherCurr->index, otherCurr->value);
 
@@ -116,17 +103,16 @@ void SparseVector::copyList(const SparseVector &other) {
         prev = curr;                  // Done with current node!
         otherCurr = otherCurr->next;  // Move to next node to copy
    }
-   // std::cout << "copyList method end" << std::endl;
 }
 
 /* Private Helper Method 3 */
 void SparseVector::setNonzeroElem(int index, int value) {
-    //std::cout << "Top of the setNonzeroElem method" << std::endl;
+
     assert(value != 0);
     
     // If empty list
     if (start == 0) {
-        std::cout << "Inside the empty list code" << std::endl;
+
         start = new node(index, value);
         size = size +1;
         return;
@@ -135,7 +121,7 @@ void SparseVector::setNonzeroElem(int index, int value) {
     // Pointer to the current node
     node *curr = start;
 
-    // Create prev node
+    // Pointer to the previous node
     node *prev = 0;
 
     // List is not empty
@@ -144,66 +130,41 @@ void SparseVector::setNonzeroElem(int index, int value) {
         // Get the next node
         node *next = curr->next;
 
-        // At the first node
-        if (prev == 0) {
-            std::cout << "Adding the node 1" << std::endl;
-            // Update the node if it already exists
-            if (curr->index == index) {
-                curr->value = value;
-                return;
-            }
+        // Add node at front
+        if (curr->index > index) {
+            start = new node(index, value, curr);
+            return;
+        }
 
-            // Add the node if it does not exist
-            if ( index < (curr->index) ) {
-                start = new node(index, value, curr->next);
-                size += 1;
-                return;
-            }
+        // Update the existing node
+        else if (curr->index == index) {
+            curr->value = value;
+            return;
+        }
 
-            // Add the node if it does not exist
-            if ( index > (curr->index) ) {
-                start = new node(index, value, curr->next);
-                size += 1;
-                return;
-            }
+        // Add node at end
+        else if (curr->index < index && curr->next == 0) {
+            curr->next = new node(index, value);
+            return;
+        }
 
-        } else if (curr->next != 0) {
-            std::cout << "Adding the node 2" << std::endl;
-            // Update the node if it already exists
-            if (curr->index == index) {
-                curr->value = value;
-                return;
-            }
-
-            // Add the node if it does not exist
-            if ( index < (curr->index) ) {
-                prev = new node(index, value, curr->next);
-                size += 1;
-                return;
-            }
-        } else if (curr->next == 0 && index > curr->index) {
-            std::cout << "Adding the node 3" << std::endl;
-            curr = new node(index, value);
-            size += 1;
+        // Add node in middle
+        else if (curr->index < index  && index < next->index) {
+            node *tempNode = new node(index, value, next);
+            curr->next = tempNode;
             return;
         }
 
         prev = curr; // Update previous node
         curr = next; // Go to the next node in list
     }
-    //checkListOrder();
-    //std::cout << "Bottom of the setNonzeroElem method" << std::endl;
 }
 
 /* Private Helper Method 4 */
 void SparseVector::removeElem(int index) {
-    //std::cout << "Top of the removeElem method" << std::endl;
-    //std::cout << "        Index is: " << index << std::endl;
+
     // Pointer to the current node
     node *curr = start;
-    // std::cout << "List[index]: " << curr->value << std::endl;
-    // std::cout << "List.index: " << curr->index << std::endl;
-    // std::cout << "List.next: " << curr->next << std::endl;
 
     // If empty list
     if (curr == 0) {
@@ -214,34 +175,30 @@ void SparseVector::removeElem(int index) {
     node *prev = 0;
 
     while (curr != 0) {
-        //std::cout << "Inside the while loop" << std::endl;
 
         // Get the next node
         node *next = curr->next;
 
-        // At the first node
-        if (prev == 0) {
-            // If node exists delete the node.
-            if (curr->index == index) {
+        if (curr->index == index) {
+            
+            // Front Node
+            if (prev == 0) {
                 start = curr->next;
                 delete curr;
-                size -= 1;
                 return;
             }
-        } else if (curr->next != 0) {
-            // If node exists delete the node.
-            if (curr->index == index) {
-                prev->next = curr->next;
-                delete curr;
-                size -= 1;
-                return;
-            }
-        } else if (curr->next == 0) {
-            // If node exists delete the node.
-            if (curr->index == index) {
+            
+            // End Node
+            else if (curr->next == 0) {
                 prev->next = 0;
                 delete curr;
-                size -= 1;
+                return;
+            }
+
+            // Middle Node
+            else {
+                prev->next = curr->next;
+                delete curr;
                 return;
             }
         }
@@ -249,13 +206,12 @@ void SparseVector::removeElem(int index) {
         prev = curr; // Update previous node
         curr = next; // Go to the next node in list
     }
-    //checkListOrder();
-    //std::cout << "Bottom of the removeElem method" << std::endl;
 }
 
 /* Private Helper Method 5 */
 void SparseVector::checkListOrder() {
     std::cout << "Printing the list:" << std::endl;
+    
     // Pointer to the current node
     node *curr = start;
 

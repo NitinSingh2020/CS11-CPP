@@ -22,7 +22,7 @@ class SparseVector {
     void copyList(const SparseVector &sv);
     void setNonzeroElem(int index, int value);
     void removeElem(int index);
-    // void checkListOrder();
+    void checkListOrder();
 
 public:
     /* Constructors */
@@ -42,7 +42,6 @@ public:
     /* Overloaded Operators */
     SparseVector & operator=(const SparseVector &sv);  // Assignment
 
-    void checkListOrder();
 };
 
 #endif /* SPARSEVECTOR_HH */
