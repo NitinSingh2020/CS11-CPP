@@ -1,7 +1,7 @@
 #include <iostream>
 #include <math.h>
+#include <stdexcept>
 
-using namespace std;
 
 double computeValue(double x);
 
@@ -13,14 +13,16 @@ int main() {
         double result = computeValue(x);
         std::cout << "Result is " << result << std::endl;
     }
-    catch (invalid_argument) {
-        std::cout << "An invalid value was entered." << std::endl;
+    catch (std::invalid_argument &e) {
+        std::cout << e.what() << std::endl;
     }
-} 
+
+    return 0;
+}
 
 double computeValue(double x) {
     if (x < 3.0) {
-        throw invalid_argument("x must be >= 3.0");
-        return 0.5 * sqrt(x - 3.0);
+        throw std::invalid_argument("x must be >= 3.0");
     }
+    return 0.5 * sqrt(x - 3.0);
 }
