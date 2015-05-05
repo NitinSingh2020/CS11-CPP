@@ -89,10 +89,14 @@ SparseVector & SparseVector::operator-=(const SparseVector &sv) {
 }
 
 /* Sum Operator */
-const SparseVector SparseVector::operator+(const SparseVector &sv) const {}
+const SparseVector SparseVector::operator+(const SparseVector &sv) const {
+    return SparseVector(*this) += sv;
+}
 
 /* Subtraction Operator */
-const SparseVector SparseVector::operator-(const SparseVector &sv) const {}
+const SparseVector SparseVector::operator-(const SparseVector &sv) const {
+    return SparseVector(*this) -= sv;
+}
 
 /* Equality Operator */
 bool SparseVector::operator==(const SparseVector &other) const {
