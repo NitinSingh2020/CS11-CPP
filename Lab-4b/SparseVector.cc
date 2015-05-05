@@ -63,10 +63,30 @@ SparseVector & SparseVector::operator=(const SparseVector &sv) {
 }
 
 /* Compound Sum Operator */
-SparseVector & SparseVector::operator+=(const SparseVector &sv) {}
+SparseVector & SparseVector::operator+=(const SparseVector &sv) {
+    // Avoid self-assignment
+    if (this != &sv) {
+        this->addSubVector(sv, bool true);
+    } else {
+        // First, make a copy of myself
+        SparseVector newCopy(*this);
+        this->addSubVector(newCopy, bool true);
+    }
+    return *this;
+}
 
 /* Compound Subtraction Operator */
-SparseVector & SparseVector::operator-=(const SparseVector &sv) {}
+SparseVector & SparseVector::operator-=(const SparseVector &sv) {
+    // Avoid self-assignment
+    if (this != &sv) {
+        this->addSubVector(sv, bool false);
+    } else {
+        // First, make a copy of myself
+        SparseVector newCopy(*this);
+        this->addSubVector(newCopy, bool false);
+    }
+    return *this;
+}
 
 /* Sum Operator */
 const SparseVector SparseVector::operator+(const SparseVector &sv) const {}
