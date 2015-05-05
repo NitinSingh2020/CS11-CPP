@@ -177,7 +177,7 @@ void SparseVector::copyList(const SparseVector &other) {
 
 /* Private Helper Method 3 */
 void SparseVector::setNonzeroElem(int index, int value) {
-
+    // Not used prev node, use prev to find better implementation
     assert(value != 0);
     
     // If empty list
@@ -303,7 +303,23 @@ void SparseVector::checkListOrder() {
 }
 
 /* Private Helper Method 6 */
-void SparseVector::addSubVector(const SparseVector &sv, bool add) {}
+void SparseVector::addSubVector(const SparseVector &other, bool add) {
+    sign = (add ? 1 : -1);
+
+    // Pointer to the current nodes
+    node *curr = start;
+    node *otherCurr = other.start;
+    
+    int idx = 0; 
+    // List is not empty
+    while (curr != 0 && otherCurr != 0) {
+        idx = min( curr->index , otherCurr->index );
+
+        // Go to the next node in lists
+        curr = curr->next;
+        otherCurr = otherCurr->next;
+    }
+}
 
 /* Private Helper Method 7 */
 void SparseVector::removeZeros() {
