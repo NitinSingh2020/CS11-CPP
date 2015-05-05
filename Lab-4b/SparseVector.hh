@@ -22,7 +22,7 @@ class SparseVector {
     void copyList(const SparseVector &sv);
     void setNonzeroElem(int index, int value);
     void removeElem(int index);
-    // void checkListOrder();
+    void checkListOrder();
     void addSubVector(const SparseVector &sv, bool add);
     void removeZeros();
     void checkZeros();
@@ -50,8 +50,6 @@ public:
     const SparseVector operator-(const SparseVector &sv) const; // Subtraction
     bool operator==(const SparseVector &mat) const;             // Equality
     bool operator!=(const SparseVector &mat) const ;            // Non-equality
-
-    void checkListOrder();
 };
 
 #endif /* SPARSEVECTOR_HH */

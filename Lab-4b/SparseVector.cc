@@ -1,7 +1,6 @@
 #include "SparseVector.hh"
 #include <iostream>
 #include <cassert>
-// #include <algorithm>
 
 /* One-argument constructor */
 SparseVector::SparseVector(int listSize) {
@@ -67,10 +66,8 @@ SparseVector & SparseVector::operator=(const SparseVector &sv) {
 SparseVector & SparseVector::operator+=(const SparseVector &sv) {
     // Avoid self-assignment
     if (this != &sv) {
-        //std::cout << "Inside the += if block" << std::endl;
         this->addSubVector(sv, true);
     } else {
-        //std::cout << "Inside the += else block" << std::endl;
         // First, make a copy of myself
         SparseVector newCopy(*this);
         this->addSubVector(newCopy, true);
@@ -316,45 +313,36 @@ void SparseVector::addSubVector(const SparseVector &other, bool add) {
     // Pointer to the previous node
     node *prev = 0;    
     int i = 0;
-    //std::cout << "Before While" << std::endl;
+
     // List is not empty
     while (curr != 0 && otherCurr != 0) {
         i = std::min( curr->index , otherCurr->index );
 
         if (curr->index < otherCurr->index) {
-            //std::cout << "Inside the if of while loop" << std::endl;
-            // Update previous node
-            prev = curr;
-            curr = curr->next; // Move node pointer forward
-            //checkListOrder();
+            prev = curr;                 // Update previous node
+            curr = curr->next;           // Move node pointer forward
         } else if (curr->index == otherCurr->index) {
-            //std::cout << "Inside the else-if of while loop" << std::endl;
-            // Update previous node
-            prev = curr;            
-            curr->value = curr->value + sign * otherCurr->value;
-            curr = curr->next; // Move node pointer forward
+            prev = curr;                 // Update previous node
+            curr->value = curr->value + (sign) * (otherCurr->value);
+            curr = curr->next;           // Move node pointer forward
             otherCurr = otherCurr->next; // Move othernode pointer forward
-            //checkListOrder();
-        } else if (curr->index > otherCurr->index) {
-            //std::cout << "Inside the last else-if of while loop" << std::endl;
-            
+        } else if (curr->index > otherCurr->index) {            
             if (prev == 0) {
                 // curr is the first node, make start point to the new added node
-                start = new node(i, otherCurr->value, curr);
+                start = new node(i, sign * (otherCurr->value), curr);
             } else {
                 // Make previous node point to the added node
-                prev->next = new node(i, otherCurr->value, curr);
+                prev->next = new node(i, sign * (otherCurr->value), curr);
             }
 
             otherCurr = otherCurr->next; // Move othernode pointer forward
-            //checkListOrder();
         }
     }
 
-    //std::cout << "After While" << std::endl;
     // If the first list ends and other doesnt
     if (curr == 0 && otherCurr != 0) {
         while (otherCurr != 0) {
+
             // Copy other list's current node
             node *curr = new node(otherCurr->index, sign * (otherCurr->value));
 
@@ -367,7 +355,7 @@ void SparseVector::addSubVector(const SparseVector &other, bool add) {
             otherCurr = otherCurr->next;  // Move to next node to copy        
         }
     }
-    //std::cout << "I am here" << std::endl;
+
     // Remove zeros from the list if generated
     removeZeros();
 }
