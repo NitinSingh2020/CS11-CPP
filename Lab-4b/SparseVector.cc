@@ -66,11 +66,11 @@ SparseVector & SparseVector::operator=(const SparseVector &sv) {
 SparseVector & SparseVector::operator+=(const SparseVector &sv) {
     // Avoid self-assignment
     if (this != &sv) {
-        this->addSubVector(sv, bool true);
+        this->addSubVector(sv, true);
     } else {
         // First, make a copy of myself
         SparseVector newCopy(*this);
-        this->addSubVector(newCopy, bool true);
+        this->addSubVector(newCopy, true);
     }
     return *this;
 }
@@ -79,11 +79,11 @@ SparseVector & SparseVector::operator+=(const SparseVector &sv) {
 SparseVector & SparseVector::operator-=(const SparseVector &sv) {
     // Avoid self-assignment
     if (this != &sv) {
-        this->addSubVector(sv, bool false);
+        this->addSubVector(sv, false);
     } else {
         // First, make a copy of myself
         SparseVector newCopy(*this);
-        this->addSubVector(newCopy, bool false);
+        this->addSubVector(newCopy, false);
     }
     return *this;
 }
@@ -306,7 +306,47 @@ void SparseVector::checkListOrder() {
 void SparseVector::addSubVector(const SparseVector &sv, bool add) {}
 
 /* Private Helper Method 7 */
-void SparseVector::removeZeros() {}
+void SparseVector::removeZeros() {
+
+    // Pointer to the current node
+    node *curr = start;
+
+    // Pointer to the previous node
+    node *prev = 0;
+
+    while (curr != 0) {
+
+        // Get the next node
+        node *next = curr->next;
+
+        if (curr->value == 0) {
+            
+            // Front Node
+            if (prev == 0) {
+                start = curr->next;
+                delete curr;
+                return;
+            }
+            
+            // End Node
+            else if (curr->next == 0) {
+                prev->next = 0;
+                delete curr;
+                return;
+            }
+
+            // Middle Node
+            else {
+                prev->next = curr->next;
+                delete curr;
+                return;
+            }
+        }
+
+        prev = curr; // Update previous node
+        curr = next; // Go to the next node in list
+    }
+}
 
 /* Private Helper Method 8 */
 void SparseVector::checkZeros() {}
