@@ -6,5 +6,5 @@ OBJECTS=
 EXECUTABLE=
 
 
-all: lab-5.cc
-	g++ -Wall lab-5.cc -o lab-5
+all: tester.cc
+	g++ -Wall tester.cc -o tester
