@@ -205,7 +205,6 @@ public:
         assert(num_values >= 0);
 
         /* There needs to be room for one more element in the heap... */
-        std::cout << "Number of values: " << num_values << std::endl;
         if (num_values >= size)
             throw std::overflow_error("heap full!");
 
@@ -220,6 +219,5 @@ public:
             sift_up(index);
     }
 };
-
 
 #endif /* __HEAP_H__ */
