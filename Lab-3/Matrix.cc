@@ -59,10 +59,6 @@ int Matrix::getelem(int row, int col) const {
 void Matrix::setelem(int row, int col, int val) {
     assert(row < numRows);
     assert(col < numCols);
-    // assert(row >= 0);
-    // assert(row <= numRows);
-    // assert(col >= 0);
-    // assert(col <= numCols);
 
     int index = matIndex(row, col);
     elems[index] = val;
@@ -81,6 +77,7 @@ void Matrix::add(const Matrix &mat) {
         }
     }
 }
+
 void Matrix::subtract(const Matrix &mat) {
 
     assert(numRows == mat.getrows());
@@ -137,8 +134,7 @@ bool Matrix::equals(const Matrix &mat) const {
 
 /* Assignment Operator */
 Matrix & Matrix::operator=(const Matrix &mat) {
-    // assert(numRows == mat.getrows());
-    // assert(numCols == mat.getcols());
+
     // Avoid self-assignment
     if (this != &mat) {
         cleanup();
