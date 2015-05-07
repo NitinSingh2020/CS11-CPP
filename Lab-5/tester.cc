@@ -6,7 +6,7 @@
 //     try {
 //         // Do something invalid, that should throw an exception.
 //         h.get_first_value();
-        
+
 //         // If we get here then the operation didn't throw an exception!
 //         std::cout << "Nothing was thrown!" << std::endl;
 //     }
@@ -18,7 +18,7 @@
 //         // this catch-block will run.
 
 //         std::cout << " Wrong thing was thrown!" << std::endl;
-//     }  
+//     }
 // }
 
 // void test_add_value_exceptions(Heap<int, 32> &h) {
@@ -45,14 +45,13 @@
 
 /* Test the heap. */
 int main(int argc, char **argv) {
-
   int size = 32;
   Heap<int, 32> h;
 
   int i;
   int lastval;
 
-  //test_get_first_value_exceptions(h);
+  // test_get_first_value_exceptions(h);
 
   try {
       h.get_first_value();
@@ -79,7 +78,7 @@ int main(int argc, char **argv) {
    * we don't have to set lastval to something strange just
    * to get the test to work...)
    */
-   
+
 
   lastval = h.get_first_value();
   std::cout << "Value 0 = " << lastval << std::endl;
@@ -95,8 +94,8 @@ int main(int argc, char **argv) {
   }
 
   for (i = 1; i < 51; i++) {
-    //test_add_value_exceptions(h);
-    
+    // test_add_value_exceptions(h);
+
     std::cout << "Attempt: " << i << "  ";
     try {
         h.add_value(9999);
@@ -108,9 +107,7 @@ int main(int argc, char **argv) {
     catch (...) {
         std::cout << " Wrong thing was thrown!" << std::endl;
     }
-
   }
 
   return 0;
 }
-
