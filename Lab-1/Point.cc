@@ -1,6 +1,7 @@
-#include "Point.hh"
-#include <iostream>
 #include <math.h>
+#include <iostream>
+#include "Point.hh"
+
 
 /* Default (aka no-argument) constructor */
 Point::Point() {
@@ -28,7 +29,7 @@ Point::~Point() {
 }
 
 /* Returns X-coordinate of a Point */
-double Point::getX () {
+double Point::getX() {
     return x_coord;
 }
 /* Returns Y-coordinate of a Point */
