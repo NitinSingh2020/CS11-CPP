@@ -6,14 +6,14 @@ class Matrix {
     int numRows;        // Row size
     int numCols;        // Column size
     int *elems;
-    
+
     /* Private Helper Methods */
     int matIndex(int row, int col) const;
     void copy(const Matrix &mat);
     void cleanup();
     void add(const Matrix &mat);
     void subtract(const Matrix &mat);
-    void multiply(const Matrix &mat); 
+    void multiply(const Matrix &mat);
 
 public:
     /* Constructors */
@@ -44,7 +44,7 @@ public:
     const Matrix operator-(const Matrix &mat) const;   // Subtraction
     const Matrix operator*(const Matrix &mat) const;   // Multiplication
     bool operator==(const Matrix &mat) const;          // Equality
-    bool operator!=(const Matrix &mat) const ;         // Non-equality
+    bool operator!=(const Matrix &mat) const;         // Non-equality
 };
 
 #endif /* MATRIX_HH */
