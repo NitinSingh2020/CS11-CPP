@@ -1,6 +1,6 @@
-#include "Matrix.hh"
 #include <iostream>
 #include <cassert>
+#include "Matrix.hh"
 
 /* Default (aka no-argument) constructor */
 Matrix::Matrix() {
@@ -13,7 +13,6 @@ Matrix::Matrix() {
 
 /* Two-argument constructor */
 Matrix::Matrix(int rows, int cols) {
-
     assert(rows > -1);
     assert(cols > -1);
 
@@ -58,7 +57,6 @@ int Matrix::getcols() const {
     return numCols;
 }
 int Matrix::getelem(int row, int col) const {
-
     assert(row <= numRows);
     assert(col <= numCols);
 
@@ -68,7 +66,6 @@ int Matrix::getelem(int row, int col) const {
 
 /* Mutator method */
 void Matrix::setelem(int row, int col, int val) {
-
     assert(row < numRows);
     assert(col < numCols);
 
@@ -78,38 +75,35 @@ void Matrix::setelem(int row, int col, int val) {
 
 /* Arithmetic methods */
 void Matrix::add(const Matrix &mat) {
-
     assert(numRows == mat.getrows());
     assert(numCols == mat.getcols());
 
     for (int i = 0; i < numRows; i++) {
         for (int j = 0; j < numCols; j++) {
             int index = matIndex(i, j);
-            elems[index] += mat.getelem(i,j);
+            elems[index] += mat.getelem(i, j);
         }
     }
 }
 void Matrix::subtract(const Matrix &mat) {
-
     assert(numRows == mat.getrows());
     assert(numCols == mat.getcols());
 
     for (int i = 0; i < numRows; i++) {
         for (int j = 0; j < numCols; j++) {
             int index = matIndex(i, j);
-            elems[index] -= mat.getelem(i,j);
+            elems[index] -= mat.getelem(i, j);
         }
     }
 }
 
 /* Comparison method */
 bool Matrix::equals(const Matrix &mat) const {
-
     if (numRows == mat.getrows() && numCols == mat.getcols()) {
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) {
                 int index = matIndex(i, j);
-                if (elems[index] != mat.getelem(i,j)) {
+                if (elems[index] != mat.getelem(i, j)) {
                     return false;
                     break;
                 }
