@@ -19,25 +19,25 @@ Point::Point(double x, double y, double z) {
 
 /* Copy Constructor */
 Point::Point(const Point &point) {
-    std::cout << "Copy constructor called" << endl;
+    std::cout << "Copy constructor called" << std::endl;
 }
 
 /* Clean up a Point instance */
 Point::~Point() {
     // no dynamically allocated resources, so doesnt do anything
-    std::cout << "Destructor called" << endl;
+    std::cout << "Destructor called" << std::endl;
 }
 
 /* Returns X-coordinate of a Point */
-double Point::getX() {
+double Point::getX() const {
     return x_coord;
 }
 /* Returns Y-coordinate of a Point */
-double Point::getY() {
+double Point::getY() const {
     return y_coord;
 }
 /* Returns Z-coordinate of a Point */
-double Point::getZ() {
+double Point::getZ() const {
     return z_coord;
 }
 /* Sets X-coordinate of a Point */
@@ -54,7 +54,7 @@ void Point::setZ(double z) {
 }
 
 /* Finds the Euclid Distance of point from the another point P */
-double Point::distanceTo(const Point &p) {
+double Point::distanceTo(const Point &p) const {
     double dx = x_coord - p.getX();
     double dy = y_coord - p.getY();
     double dz = z_coord - p.getZ();
@@ -71,7 +71,7 @@ void Point::rotate90aboutZaxis() {
 
 /* Prints the Point out in cartesian coordinates form */
 void Point::printPoint() {
-    cout << "(" << x_coord
+    std::cout << "(" << x_coord
          << "," << y_coord
-         << "," << z_coord << ")" << endl;
+         << "," << z_coord << ")" << std::endl;
 }

@@ -14,9 +14,9 @@ public:
     ~Point();                         
 
     /* Accessor methods */
-    double getX();
-    double getY();
-    double getZ();
+    double getX() const;
+    double getY() const;
+    double getZ() const;
 
     /* Mutators */
     void setX(double x);
@@ -24,7 +24,7 @@ public:
     void setZ(double z);
 
     /* Miscallaneous Methods */
-    double distanceTo(const Point &p);
+    double distanceTo(const Point &p) const;
     void rotate90aboutZaxis();
     void printPoint();
 };

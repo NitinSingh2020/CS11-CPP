@@ -1,7 +1,7 @@
-#include <iostream>
-#include "Point.hh"
 #include <math.h>
+#include <iostream>
 #include <string>
+#include "Point.hh"
 
 using namespace std;
 
@@ -9,15 +9,15 @@ double computeArea(Point &a, Point &b, Point &c);
 bool validTriangle(double a, double b, double c);
 
 int main() {
-
     double a, b, c;
     Point threePoints[3];
     string userInput;
 
     while (true) {
         for (int i = 0; i < 3; i++) {
-            cout << "Enter the coordinates of the point # " << i+1 << " (separated by space) : " ;
-            cin >> a >> b >> c ;
+            cout << "Enter the coordinates of the point # "
+                 << i+1 << " (separated by space) : ";
+            cin >> a >> b >> c;
             threePoints[i].setX(a);
             threePoints[i].setY(b);
             threePoints[i].setZ(c);
@@ -25,7 +25,8 @@ int main() {
             threePoints[i].printPoint();
         }
 
-        cout << "Area is: " << computeArea(threePoints[0], threePoints[1], threePoints[2]) << endl;
+        cout << "Area is: " << computeArea(threePoints[0], threePoints[1],
+            threePoints[2]) << endl;
 
         cout << "Want to continue? (yes/no)";
         cin >> userInput;
@@ -42,12 +43,12 @@ int main() {
     p2.printPoint();
     p2.rotate90aboutZaxis();
     p2.printPoint();
-    
+
     /* Heap Allocation example */
-    Point *p = new Point(3.5, 2.1, 4.7); // Declare the memory
+    Point *p = new Point(3.5, 2.1, 4.7);  // Declare the memory
     cout << "New Point in heap memory is: ";
     p->printPoint();
-    delete p;                            // Free the point
+    delete p;                             // Free the point
 }
 
 double computeArea(Point &a, Point &b, Point &c) {
@@ -63,7 +64,7 @@ double computeArea(Point &a, Point &b, Point &c) {
 
     if (validTriangle(side_1, side_2, side_3)) {
         /* Semi perimeter */
-        double s = ( side_1 + side_2 + side_3)/2.0;
+        double s = (side_1 + side_2 + side_3)/2.0;
 
         /* Triangle Area Using Heron's formula */
         return sqrt(s*(s-side_1)*(s-side_2)*(s-side_3));
