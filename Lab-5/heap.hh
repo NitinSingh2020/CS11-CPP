@@ -1,8 +1,8 @@
 #ifndef __HEAP_H__
 #define __HEAP_H__
 
-#include <cassert>
 #include <stdlib.h>
+#include <cassert>
 #include <stdexcept>
 
 template<typename T, int size> class Heap {
@@ -35,7 +35,6 @@ template<typename T, int size> class Heap {
      * value, we preserve the heap properties even in that situation.
      */
     void sift_down(int index) {
-        //assert(pHeap != NULL);
         assert(index < num_values);
 
         int left_child = LEFT_CHILD(index);
@@ -69,24 +68,24 @@ template<typename T, int size> class Heap {
             T right_val = values[right_child];
             int swap_child;
 
-                if (left_val < values[index] ||
-                right_val < values[index]) {
-                /* Need to swap this node with one of its children.  Pick
-                 * the smaller of the two children, since this is a min-heap
-                 * and that will preserve the heap properties.
-                 */
-                    if (left_val < right_val)
-                        swap_child = left_child;
-                    else
-                        swap_child = right_child;
+            if (left_val < values[index] ||
+            right_val < values[index]) {
+            /* Need to swap this node with one of its children.  Pick
+             * the smaller of the two children, since this is a min-heap
+             * and that will preserve the heap properties.
+             */
+                if (left_val < right_val)
+                    swap_child = left_child;
+                else
+                    swap_child = right_child;
 
-                    /* Do the swap, then call sift_down again, in case we aren't
-                     * at the bottom of the heap yet.
-                     */
-                    swap_values(index, swap_child);
-                    sift_down(swap_child);
-                }
-        }    	
+                /* Do the swap, then call sift_down again, in case we aren't
+                 * at the bottom of the heap yet.
+                 */
+                swap_values(index, swap_child);
+                sift_down(swap_child);
+            }
+        }
     }
 
     /*
@@ -98,21 +97,20 @@ template<typename T, int size> class Heap {
      * not affected by sifting a value up.)
      */
     void sift_up(int index) {
-    	// std::cout << "Inside sift_up !" << std::endl;
-    	int parent_index = PARENT(index);
+        int parent_index = PARENT(index);
 
         /* If the index to sift up is the root, we are done. */
         if (index == 0)
             return;
 
         assert(parent_index >= 0);
-        assert(parent_index != index);  /* Parent of index 0 = 0... that's bad. */
+        assert(parent_index != index);  /* Parent of index 0 = 0..that's bad. */
 
         /* If the specified value is smaller than its parent value then
          * we have to swap the value and its parent.
          */
         if (values[index] < values[parent_index]) {
-        /* Swap the value with its parent value. */ 
+        /* Swap the value with its parent value. */
             swap_values(index, parent_index);
 
             /* If we haven't gotten to the root, we might have to
@@ -167,8 +165,6 @@ public:
     /* Returns the first (i.e. smallest) value in the heap. */
     T get_first_value() {
         T result;
-
-        //assert(pHeap != NULL);
 
         /* There needs to be at least one value left in the heap! */
         if (num_values <= 0)
