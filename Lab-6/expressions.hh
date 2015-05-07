@@ -1,6 +1,7 @@
 #ifndef __EXPRESSIONS_HH__
 #define __EXPRESSIONS_HH__
 
+#include "environment.hh"
 #include <cassert>
 
 /* Comment for the Expression class
@@ -8,7 +9,7 @@
 class Expression {
 
 public:
-    /* Pure Virtual Destructor */
+    /* Virtual Destructor */
     virtual ~Expression() {}
 
     /* Pure Virtual Function */
@@ -35,6 +36,7 @@ public:
 class Symbol : public Expression {
     string symbol;
 public:
+    /* Constructor */
     Symbol(string sym) {
         symbol = sym;
     }
@@ -56,6 +58,7 @@ class BinaryOperator : public Expression {
     Expression *pRHS;
 
 public:
+    /* Constructor */
     BinaryOperator(Expression *_pLHS, Expression *_pRHS) {
         assert(_pLHS != 0);
         assert(_pRHS != 0);
@@ -80,6 +83,7 @@ public:
  * ========================== */
 class AddOper : public BinaryOperator {
 public:
+    /* Constructor */
     AddOper(Expression *_pLHS, Expression *_pRHS) :
         BinaryOperator(_pLHS, _pRHS) {}
 
@@ -92,6 +96,7 @@ public:
  * ========================== */
 class SubOper : public BinaryOperator {
 public:
+    /* Constructor */
     SubOper(Expression *_pLHS, Expression *_pRHS) :
         BinaryOperator(_pLHS, _pRHS) {}
 
@@ -104,6 +109,7 @@ public:
  * ========================== */
 class MulOper : public BinaryOperator {
 public:
+    /* Constructor */
     MulOper(Expression *_pLHS, Expression *_pRHS) :
         BinaryOperator(_pLHS, _pRHS) {}
 
@@ -116,6 +122,7 @@ public:
  * ========================== */
 class DivOper : public BinaryOperator {
 public:
+    /* Constructor */
     DivOper(Expression *_pLHS, Expression *_pRHS) :
         BinaryOperator(_pLHS, _pRHS) {}
 
@@ -134,6 +141,7 @@ class UnaryOperator : public Expression {
     Expression *pOperand;
 
 public:
+    /* Constructor */
     UnaryOperator(Expression *_pOperand) {
         assert(_pOperand != 0);
         pOperand = _pOperand;
@@ -161,15 +169,3 @@ public:
 
 
 #endif /* __EXPRESSIONS_HH__ */
-
-
-
-
-
-
-
-
-
-
-
-
