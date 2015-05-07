@@ -10,13 +10,13 @@ class SparseVector {
         node *next;    // A pointer to the next node in the linked-list.
 
         /* Node constructor - simply initializes the data-members */
-        node(int index, int value, node *next = 0) : 
+        node(int index, int value, node *next = 0) :
             index(index), value(value), next(next) { }
     };
 
     int size;          // List size
     node *start;       // Node-pointer to the first nonzero element in the list
-    
+
     /* Private Helper Methods */
     void clear();
     void copyList(const SparseVector &sv);
@@ -41,7 +41,6 @@ public:
 
     /* Overloaded Operators */
     SparseVector & operator=(const SparseVector &sv);  // Assignment
-
 };
 
 #endif /* SPARSEVECTOR_HH */
