@@ -28,12 +28,12 @@ int SparseVector::getElem(int idx) const {
     node *curr = start;
 
     while (curr != 0 && curr->index <= idx) {
-        
+
         // Do Something with current node
         if (curr->index == idx) {
             return curr->value;
         }
-        
+
         // Go to next node in list
         curr = curr->next;
     }
@@ -100,8 +100,8 @@ const SparseVector SparseVector::operator-(const SparseVector &sv) const {
 
 /* Equality Operator */
 bool SparseVector::operator==(const SparseVector &other) const {
-    
-    // If size is different vectors cannot be equal 
+
+    // If size is different vectors cannot be equal
     if (size != other.getSize())
         return false;
 
@@ -112,7 +112,8 @@ bool SparseVector::operator==(const SparseVector &other) const {
     // List is not empty
     while (curr != 0 && otherCurr != 0) {
 
-        if (curr->value != otherCurr->value || curr->index != otherCurr->index) {
+        if (curr->value != otherCurr->value ||
+            curr->index != otherCurr->index) {
             return false;
         }
 
@@ -161,7 +162,7 @@ void SparseVector::copyList(const SparseVector &other) {
     // Use prev and curr to create the copy
     node *prev = 0;
     while (otherCurr != 0) {
-    
+
         // Copy other list's current node
         node *curr = new node(otherCurr->index, otherCurr->value);
 
@@ -172,17 +173,16 @@ void SparseVector::copyList(const SparseVector &other) {
 
         prev = curr;                  // Done with current node!
         otherCurr = otherCurr->next;  // Move to next node to copy
-   }
+    }
 }
 
 /* Private Helper Method 3 */
 void SparseVector::setNonzeroElem(int index, int value) {
     // Not used prev node, use prev to find better implementation
     assert(value != 0);
-    
+
     // If empty list
     if (start == 0) {
-
         start = new node(index, value);
         size = size +1;
         return;
@@ -225,8 +225,8 @@ void SparseVector::setNonzeroElem(int index, int value) {
             return;
         }
 
-        prev = curr; // Update previous node
-        curr = next; // Go to the next node in list
+        prev = curr;  // Update previous node
+        curr = next;  // Go to the next node in list
     }
 }
 
@@ -250,14 +250,14 @@ void SparseVector::removeElem(int index) {
         node *next = curr->next;
 
         if (curr->index == index) {
-            
+
             // Front Node
             if (prev == 0) {
                 start = curr->next;
                 delete curr;
                 return;
             }
-            
+
             // End Node
             else if (curr->next == 0) {
                 prev->next = 0;
@@ -273,15 +273,15 @@ void SparseVector::removeElem(int index) {
             }
         }
 
-        prev = curr; // Update previous node
-        curr = next; // Go to the next node in list
+        prev = curr;  // Update previous node
+        curr = next;  // Go to the next node in list
     }
 }
 
 /* Private Helper Method 5 */
 void SparseVector::checkListOrder() {
     std::cout << "Printing the list:" << std::endl;
-    
+
     // Pointer to the current node
     node *curr = start;
 
@@ -296,9 +296,10 @@ void SparseVector::checkListOrder() {
         // Get the next node
         node *next = curr->next;
 
-        std::cout << "    list[" << curr->index << "] : " << curr->value << std::endl;
+        std::cout << "    list[" << curr->index << "] : "
+                  << curr->value << std::endl;
         // Go to next node in list
-        curr = next;        
+        curr = next;
     }
 }
 
@@ -309,33 +310,33 @@ void SparseVector::addSubVector(const SparseVector &other, bool add) {
     // Pointer to the current nodes
     node *curr = start;
     node *otherCurr = other.start;
-    
+
     // Pointer to the previous node
-    node *prev = 0;    
+    node *prev = 0;
     int i = 0;
 
     // List is not empty
     while (curr != 0 && otherCurr != 0) {
-        i = std::min( curr->index , otherCurr->index );
+        i = std::min(curr->index , otherCurr->index);
 
         if (curr->index < otherCurr->index) {
-            prev = curr;                 // Update previous node
-            curr = curr->next;           // Move node pointer forward
+            prev = curr;                  // Update previous node
+            curr = curr->next;            // Move node pointer forward
         } else if (curr->index == otherCurr->index) {
-            prev = curr;                 // Update previous node
+            prev = curr;                  // Update previous node
             curr->value = curr->value + (sign) * (otherCurr->value);
-            curr = curr->next;           // Move node pointer forward
-            otherCurr = otherCurr->next; // Move othernode pointer forward
-        } else if (curr->index > otherCurr->index) {            
+            curr = curr->next;            // Move node pointer forward
+            otherCurr = otherCurr->next;  // Move othernode pointer forward
+        } else if (curr->index > otherCurr->index) {
             if (prev == 0) {
-                // curr is the first node, make start point to the new added node
+                // curr is the first node, make start point to new added node
                 start = new node(i, sign * (otherCurr->value), curr);
             } else {
                 // Make previous node point to the added node
                 prev->next = new node(i, sign * (otherCurr->value), curr);
             }
 
-            otherCurr = otherCurr->next; // Move othernode pointer forward
+            otherCurr = otherCurr->next;  // Move othernode pointer forward
         }
     }
 
@@ -352,7 +353,7 @@ void SparseVector::addSubVector(const SparseVector &other, bool add) {
                 prev->next = curr;        // Make previous node point to current
 
             prev = curr;                  // Done with current node!
-            otherCurr = otherCurr->next;  // Move to next node to copy        
+            otherCurr = otherCurr->next;  // Move to next node to copy
         }
     }
 
@@ -375,14 +376,14 @@ void SparseVector::removeZeros() {
         node *next = curr->next;
 
         if (curr->value == 0) {
-            
+
             // Front Node
             if (prev == 0) {
                 start = curr->next;
                 delete curr;
                 return;
             }
-            
+
             // End Node
             else if (curr->next == 0) {
                 prev->next = 0;
@@ -398,8 +399,8 @@ void SparseVector::removeZeros() {
             }
         }
 
-        prev = curr; // Update previous node
-        curr = next; // Go to the next node in list
+        prev = curr;  // Update previous node
+        curr = next;  // Go to the next node in list
     }
 }
 
