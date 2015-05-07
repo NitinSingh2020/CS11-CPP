@@ -2,8 +2,9 @@
 #define __COMMANDS_HH__
 
 #include <iostream>
-#include "expressions.hh"
 #include <cassert>
+#include "expressions.hh"
+
 
 /* Comment for the Command class
  * ========================== */
@@ -50,10 +51,11 @@ public:
         symbol = _symbol;
         command = _command;
     }
-    
+
     void run(Environment &env) const {
         symbol->getSymbol() = command->evaluate(env);
-        std::cout << symbol->getSymbol() << " = " << command->evaluate(env) << std::endl;
+        std::cout << symbol->getSymbol() << " = "
+                  << command->evaluate(env) << std::endl;
     }
 
     /* Destructor */
