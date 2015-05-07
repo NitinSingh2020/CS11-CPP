@@ -1,15 +1,11 @@
-#ifndef EXPRESSIONS_HH
-#define EXPRESSIONS_HH
+#ifndef __EXPRESSIONS_HH__
+#define __EXPRESSIONS_HH__
 
 #include <cassert>
 
 /* Comment for the Expression class
  * ============================= */
 class Expression {
-
-// protected:
-//     /* Pure Virtual Function */
-//     virtual double evaluate(const Environment &env) const = 0;
 
 public:
     /* Pure Virtual Destructor */
@@ -19,7 +15,8 @@ public:
     virtual double evaluate(const Environment &env) const = 0;
 };
 
-/* Comment for the class */
+/* Comment for the Value class
+ * ============================= */
 class Value : public Expression {
     double value;
 public:
@@ -79,7 +76,8 @@ public:
     }
 };
 
-/* Comment for the class */
+/* Comment for the AddOper class
+ * ========================== */
 class AddOper : public BinaryOperator {
 public:
     AddOper(Expression *_pLHS, Expression *_pRHS) :
@@ -90,7 +88,8 @@ public:
     }
 };
 
-/* Comment for the class */
+/* Comment for the SubOper class
+ * ========================== */
 class SubOper : public BinaryOperator {
 public:
     SubOper(Expression *_pLHS, Expression *_pRHS) :
@@ -101,7 +100,8 @@ public:
     }
 };
 
-/* Comment for the class */
+/* Comment for the MulOper class
+ * ========================== */
 class MulOper : public BinaryOperator {
 public:
     MulOper(Expression *_pLHS, Expression *_pRHS) :
@@ -112,7 +112,8 @@ public:
     }
 };
 
-/* Comment for the class */
+/* Comment for the DivOper class
+ * ========================== */
 class DivOper : public BinaryOperator {
 public:
     DivOper(Expression *_pLHS, Expression *_pRHS) :
@@ -147,7 +148,8 @@ public:
     }
 };
 
-/* Comment for the class */
+/* Comment for the NegOper class
+ * ========================== */
 class NegOper : public UnaryOperator {
 public:
     NegOper(Expression *_pOperand) : UnaryOperator(_pOperand) {}
@@ -158,7 +160,7 @@ public:
 };
 
 
-#endif /* EXPRESSIONS_HH */
+#endif /* __EXPRESSIONS_HH__ */
 
 
 
