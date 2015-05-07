@@ -1,18 +1,22 @@
 #ifndef EXPRESSIONS_HH
 #define EXPRESSIONS_HH
 
+#include <cassert>
 
 /* Comment for the Expression class
  * ============================= */
 class Expression {
 
-protected:
-    /* Pure Virtual Function */
-    virtual double evaluate(const Environment &env) const = 0;
+// protected:
+//     /* Pure Virtual Function */
+//     virtual double evaluate(const Environment &env) const = 0;
 
 public:
     /* Pure Virtual Destructor */
     virtual ~Expression() {}
+
+    /* Pure Virtual Function */
+    virtual double evaluate(const Environment &env) const = 0;
 };
 
 /* Comment for the class */
@@ -62,10 +66,10 @@ public:
         pRHS = _pRHS;
     }
 
-    const Expression * getLHS() {
+    const Expression * getLHS() const {
         return pLHS;
     }
-    const Expression * getRHS() {
+    const Expression * getRHS() const {
         return pRHS;
     }
 
@@ -78,40 +82,48 @@ public:
 /* Comment for the class */
 class AddOper : public BinaryOperator {
 public:
-    AddOper() : BinaryOperator(pLHS, pRHS) {}
+    AddOper(Expression *_pLHS, Expression *_pRHS) :
+        BinaryOperator(_pLHS, _pRHS) {}
+
     double evaluate(const Environment &env) const {
-        return pLHS->evaluate() + pRHS->evaluate();
+        return (getLHS())->evaluate(env) + (getRHS())->evaluate(env);
     }
 };
 
 /* Comment for the class */
 class SubOper : public BinaryOperator {
 public:
-    SubOper() : BinaryOperator(pLHS, pRHS) {}
+    SubOper(Expression *_pLHS, Expression *_pRHS) :
+        BinaryOperator(_pLHS, _pRHS) {}
+
     double evaluate(const Environment &env) const {
-        return pLHS->evaluate() - pRHS->evaluate();
+        return (getLHS())->evaluate(env) - (getRHS())->evaluate(env);
     }
 };
 
 /* Comment for the class */
 class MulOper : public BinaryOperator {
 public:
-    MulOper() : BinaryOperator(pLHS, pRHS) {}
+    MulOper(Expression *_pLHS, Expression *_pRHS) :
+        BinaryOperator(_pLHS, _pRHS) {}
+
     double evaluate(const Environment &env) const {
-        return pLHS->evaluate() * pRHS->evaluate();
+        return (getLHS())->evaluate(env) * (getRHS())->evaluate(env);
     }
 };
 
 /* Comment for the class */
 class DivOper : public BinaryOperator {
 public:
-    DivOper() : BinaryOperator(pLHS, pRHS) {}
+    DivOper(Expression *_pLHS, Expression *_pRHS) :
+        BinaryOperator(_pLHS, _pRHS) {}
+
     double evaluate(const Environment &env) const {
 
-    	if (pRHS->evaluate() == 0) {
+    	if ((getRHS())->evaluate(env) == 0) {
     		throw std::runtime_error("Division by 0 is not permitted !");
     	}
-        return pLHS->evaluate() / pRHS->evaluate();
+        return (getLHS())->evaluate(env) / (getRHS())->evaluate(env);
     }
 };
 
@@ -126,7 +138,7 @@ public:
         pOperand = _pOperand;
     }
 
-    const Expression * getpOperand() {
+    const Expression * getpOperand() const {
         return pOperand;
     }
 
@@ -138,9 +150,10 @@ public:
 /* Comment for the class */
 class NegOper : public UnaryOperator {
 public:
-    NegOper() : UnaryOperator(pOperand) {}
+    NegOper(Expression *_pOperand) : UnaryOperator(_pOperand) {}
+
     double evaluate(const Environment &env) const {
-        return pLHS->evaluate() + pRHS->evaluate();
+        return -1 * (getpOperand())->evaluate(env);
     }
 };
 
