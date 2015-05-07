@@ -1,13 +1,14 @@
 #ifndef __EXPRESSIONS_HH__
 #define __EXPRESSIONS_HH__
 
-#include "environment.hh"
 #include <cassert>
+#include <string>
+#include "environment.hh"
+
 
 /* Comment for the Expression class
  * ============================= */
 class Expression {
-
 public:
     /* Virtual Destructor */
     virtual ~Expression() {}
@@ -127,10 +128,9 @@ public:
         BinaryOperator(_pLHS, _pRHS) {}
 
     double evaluate(const Environment &env) const {
-
-    	if ((getRHS())->evaluate(env) == 0) {
-    		throw std::runtime_error("Division by 0 is not permitted !");
-    	}
+        if ((getRHS())->evaluate(env) == 0) {
+            throw std::runtime_error("Division by 0 is not permitted !");
+        }
         return (getLHS())->evaluate(env) / (getRHS())->evaluate(env);
     }
 };
