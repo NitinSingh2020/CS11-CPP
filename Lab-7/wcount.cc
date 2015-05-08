@@ -1,6 +1,8 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include <algorithm>
+#include <cctype>
 
 
 // So we don't have to type "std::" everywhere...
@@ -10,7 +12,6 @@ using namespace std;
 string processWord(string word);
 void processText(map<string, int>& wordCounts);
 void outputWordsByCount(map<string, int>& wordCounts);
-
 
 int main()
 {
@@ -42,6 +43,33 @@ string processWord(string word)
   /*****************************************/
   /* TODO:  Your implementation goes here! */
   /*****************************************/
+
+  size_t endIdx = word.length() - 1;
+  size_t startIdx = endIdx;
+
+  // Convert the word to the lower case
+  std::transform(word.begin(), word.end(), word.begin(), ::tolower);
+
+  // Remove all leading and trailing punctuation
+  for (size_t i = 0; i < word.length(); i++) {
+    if (!ispunct(word[i])) {
+      startIdx = i;
+      break;
+    }
+  }
+
+  if (startIdx <= endIdx) {
+    for (size_t j = word.length() - 1; j >= 0; j-- ) {
+      if (!ispunct(word[j])) {
+        endIdx = j;
+        break;
+      }
+    }
+  // cout << "After Processing : " << word.substr(startIdx, endIdx - startIdx + 1) << endl;
+  return word.substr(startIdx, endIdx - startIdx + 1);
+  }
+
+  return "";
 }
 
 
@@ -50,6 +78,24 @@ void processText(map<string, int>& wordCounts)
   /*****************************************/
   /* TODO:  Your implementation goes here! */
   /*****************************************/
+
+  string word;
+  int numberOfWords = 0;
+
+  // Read input until there is no more!
+  while (cin >> word)
+  {
+    // Do something with each word.
+    word = processWord(word);
+
+    if (word.length() != 0) {
+      numberOfWords++;
+      wordCounts[word]++;
+    }
+  }
+
+  cout << "Total words in document:  " << numberOfWords << endl;
+  cout << "Unique words:  " << wordCounts.size() << endl;
 }
 
 
