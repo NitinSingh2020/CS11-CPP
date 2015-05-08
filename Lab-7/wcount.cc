@@ -65,7 +65,7 @@ string processWord(string word)
         break;
       }
     }
-  // cout << "After Processing : " << word.substr(startIdx, endIdx - startIdx + 1) << endl;
+  
   return word.substr(startIdx, endIdx - startIdx + 1);
   }
 
