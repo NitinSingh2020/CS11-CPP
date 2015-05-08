@@ -97,7 +97,7 @@ string processWord(string word)
   }
 
   if (startIdx <= endIdx) {
-    for (size_t j = word.length() - 1; j >= 0; j-- ) {
+    for (size_t j = word.length() - 1; j >= 0; j--) {
       if (!ispunct(word[j])) {
         endIdx = j;
         break;
@@ -135,7 +135,6 @@ void processText(set<string>& skipList, map<string, int>& wordCounts)
       } else {
         wordCounts[word]++;
       }
-
     }
   }
 
