@@ -2,6 +2,8 @@
 #include <map>
 #include <set>
 #include <string>
+#include <algorithm>
+#include <cctype>
 
 
 // So we don't have to type "std::" everywhere...
@@ -80,6 +82,32 @@ string processWord(string word)
   /*****************************************/
   /* TODO:  Your implementation goes here! */
   /*****************************************/
+  size_t endIdx = word.length() - 1;
+  size_t startIdx = endIdx;
+
+  // Convert the word to the lower case
+  std::transform(word.begin(), word.end(), word.begin(), ::tolower);
+
+  // Remove all leading and trailing punctuation
+  for (size_t i = 0; i < word.length(); i++) {
+    if (!ispunct(word[i])) {
+      startIdx = i;
+      break;
+    }
+  }
+
+  if (startIdx <= endIdx) {
+    for (size_t j = word.length() - 1; j >= 0; j-- ) {
+      if (!ispunct(word[j])) {
+        endIdx = j;
+        break;
+      }
+    }
+
+  return word.substr(startIdx, endIdx - startIdx + 1);
+  }
+
+  return "";
 }
 
 
@@ -88,6 +116,32 @@ void processText(set<string>& skipList, map<string, int>& wordCounts)
   /***********************************/
   /* TODO:  Implement this function! */
   /***********************************/
+  string word;
+  int numberOfWords = 0;
+  int numberOfStopWords = 0;
+
+  // Read input until there is no more!
+  while (cin >> word)
+  {
+    // Do something with each word.
+    word = processWord(word);
+
+    if (word.length() != 0) {
+      numberOfWords++;
+
+      // If a stop-word.
+      if (skipList.find(word) != skipList.end()) {
+        numberOfStopWords++;
+      } else {
+        wordCounts[word]++;
+      }
+
+    }
+  }
+
+  cout << "Total words in document:  " << numberOfWords << endl;
+  cout << "Unique words:  " << wordCounts.size() << endl;
+  cout << "Skipped " << numberOfStopWords << " words." << endl;
 }
 
 
