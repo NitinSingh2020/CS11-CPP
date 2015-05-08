@@ -6,5 +6,10 @@ OBJECTS=
 EXECUTABLE=
 
 
-all: wcount.cc
+all: wcount swcount
+
+wcount:
 	g++ -Wall wcount.cc -o wcount
+
+swcount:
+	g++ -Wall swcount.cc -o swcount
